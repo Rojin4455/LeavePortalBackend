@@ -124,6 +124,9 @@ class ManagerLeaveRequestView(APIView):
                     status=status.HTTP_400_BAD_REQUEST,
                 )
             print("actions: ", action)
+            leave_balance = LeaveBalance.objects.get(user = leave_request.employee, leave_type=leave_request.leave_type)
+            leave_balance.used_days += leave_request.num_days
+            leave_balance.save()
             leave_request.status = action
             leave_request.save()
 

@@ -47,8 +47,9 @@ class LeaveBalance(models.Model):
         return self.leave_type.default_days - self.used_days
     
 
-    def save(self):
-        self.remaining_days = self.leave_type.default_days - self.used_days
+    # def save(self, *args, **kwargs):
+    #     self.remaining_days = self.leave_type.default_days - self.used_days
+        
 
 class LeaveRequest(models.Model):
     STATUS_CHOICES = (

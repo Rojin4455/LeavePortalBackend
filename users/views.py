@@ -252,3 +252,21 @@ class AllUsersView(APIView):
         if serializer:
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_200_OK)
+    
+
+
+class ManagerInfoAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        if not user.manager:
+            return Response({"message": "No manager assigned to this user."}, status=404)
+        
+        manager = user.manager
+        serializer = UserSerializer(manager)
+        department = Department.objects.get(id = serializer.data['department'])
+        
+        data = serializer.data
+        data['department_name'] = department.name
+        return Response(data, status=200)

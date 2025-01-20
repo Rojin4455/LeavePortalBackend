@@ -15,4 +15,5 @@ urlpatterns = [
     path('user/get-managers/',ManagerView.as_view()),
     path('manager/get-employees/',ManagerEmployeesView.as_view()),
     path('fetch-all-users/', AllUsersView.as_view()),
+    path('manager-info/', ManagerInfoAPIView.as_view())
 ]   
