@@ -43,6 +43,10 @@ class UserLeaveBalanceView(APIView):
     
 
 
+
+
+
+
 class UserRequestLeaveView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -51,6 +55,8 @@ class UserRequestLeaveView(APIView):
         print("request user: ", request.user.id)
         data['employee'] = request.user.id
         print("data: ", data)
+
+
         serializer = LeaveRequestSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
@@ -140,3 +146,16 @@ class ManagerLeaveRequestView(APIView):
             )
         
 
+
+
+
+# class LeaveRange(APIView):
+#     permission_classes = [IsAuthenticated]
+
+#     def get(self, request):
+#         user = request.user
+
+#         leave_requests = LeaveRequest.objects.filter(employee = user)
+#         print(leave_requests)
+
+#         return Response(status=status.HTTP_200_OK)

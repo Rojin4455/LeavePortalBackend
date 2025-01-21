@@ -72,3 +72,14 @@ class LeaveRequest(models.Model):
     
     def __str__(self):
         return f"{self.employee.get_full_name()} - {self.leave_type.name} ({self.status})"
+    
+    # def has_date_overlap(self):
+
+    #     overlapping_requests = LeaveRequest.objects.filter(
+    #         employee=self.employee,
+    #         status__in=['PENDING', 'APPROVED'],
+    #         start_date__lte=self.end_date,
+    #         end_date__gte=self.start_date,
+    #     ).exclude(id=self.id)
+        
+    #     return overlapping_requests.exists()

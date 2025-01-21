@@ -9,4 +9,5 @@ urlpatterns = [
     path('combined-leave-details/', ConbinedLeaveDetails.as_view(),),
     path('manager/leave-requests/', ManagerLeaveRequestView.as_view()),
     path('change-request-status/', ManagerLeaveRequestView.as_view()),
+    # path('leave-date-ranges/', LeaveRange.as_view()),
 ]

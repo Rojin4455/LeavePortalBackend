@@ -84,6 +84,22 @@ class LeaveRequestSerializer(ModelSerializer):
     def validate(self, data):
         if data['start_date'] > data['end_date']:
             raise serializers.ValidationError("Start date must be before or equal to the end date.")
+        
+
+        overlapping_requests = LeaveRequest.objects.filter(
+            employee=data['employee'],
+            status__in=['PENDING', 'APPROVED'],
+            start_date__lte=data['end_date'],
+            end_date__gte=data['start_date']
+        )
+        
+        if self.instance:
+            overlapping_requests = overlapping_requests.exclude(id=self.instance.id)
+        
+        if overlapping_requests.exists():
+            raise serializers.ValidationError({
+                "date_range": "You already have a leave request for these dates. Please check your existing requests."
+            })
         return data
     
 
